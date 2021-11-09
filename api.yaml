@@ -1,0 +1,10 @@
+swagger: "2.0"
+info:
+  title: Simple User and Group management API
+  description: Simple User and Group management API
+  version: 1.0.0
+host: localhost
+schemes:
+  - https
+paths:
+  

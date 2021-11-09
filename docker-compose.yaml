@@ -1,0 +1,28 @@
+version: "3.7"
+services:
+  api:
+    build:
+      dockerfile: build/Dockerfile
+      context: .
+      target: app
+    ports:
+      - "7777:7777"
+  mongodb:
+    image: mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=examplepass
+      - PUID=1000
+      - PGID=1000
+    volumes:
+      - mongodb-data:/data/db
+    ports:
+      - "27017:27017"
+    restart: unless-stopped
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongo mongodb1:27017/test --quiet
+      interval: 30s
+      timeout: 10s
+      retries: 3
+volumes:
+  mongodb-data:
