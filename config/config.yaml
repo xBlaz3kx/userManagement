@@ -1,0 +1,9 @@
+api:
+  host: ""
+  port: 8080
+mongo:
+  host: "mongodb"
+  port: 27017
+  username: "root"
+  password: "examplepass"
+  database: "user-group-api"

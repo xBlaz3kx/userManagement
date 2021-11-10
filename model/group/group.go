@@ -1,9 +1,12 @@
 package group
 
+import "github.com/kamva/mgm/v3"
+
 type (
 	Group struct {
-		Name  string   `json:"name" bson:"name" validate:"required"`
-		Users []string `json:"users" bson:"users"`
+		mgm.DefaultModel `bson:",inline"`
+		Name             string   `json:"name" bson:"name" validate:"required"`
+		Users            []string `json:"users" bson:"users"`
 	}
 )
 

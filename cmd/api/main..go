@@ -1,7 +1,10 @@
 package main
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/xBlaz3kx/userManagementExample/db"
+	"github.com/xBlaz3kx/userManagementExample/internal/configuration"
 	"github.com/xBlaz3kx/userManagementExample/internal/group"
 	"github.com/xBlaz3kx/userManagementExample/internal/user"
 	"log"
@@ -42,7 +45,17 @@ func getRouter() *gin.Engine {
 func main() {
 	router := getRouter()
 
-	err := router.Run() // listen and serve on 0.0.0.0:8080
+	// get app configuration
+	appConfiguration := configuration.GetConfiguration()
+
+	api := appConfiguration.API
+	connectAddress := fmt.Sprintf("%s:%d", api.Host, api.Port)
+
+	// connect to the database
+	db.Connect(appConfiguration.Mongo)
+
+	// listen and serve the api on provided address
+	err := router.Run(connectAddress)
 	if err != nil {
 		log.Println(err)
 	}
