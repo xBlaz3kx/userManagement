@@ -2,7 +2,13 @@ module github.com/xBlaz3kx/userManagementExample
 
 go 1.17
 
-require github.com/gin-gonic/gin v1.7.4
+require (
+	github.com/fvbock/endless v0.0.0-20170109170031-447134032cb6
+	github.com/gin-gonic/gin v1.7.4
+	github.com/kamva/mgm/v3 v3.4.1
+	github.com/kkyr/fig v0.3.0
+	go.mongodb.org/mongo-driver v1.7.0
+)
 
 require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
@@ -15,8 +21,6 @@ require (
 	github.com/golang/snappy v0.0.1 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
-	github.com/kamva/mgm/v3 v3.4.1 // indirect
-	github.com/kkyr/fig v0.3.0 // indirect
 	github.com/klauspost/compress v1.9.5 // indirect
 	github.com/leodido/go-urn v1.2.1 // indirect
 	github.com/mattn/go-isatty v0.0.14 // indirect
@@ -32,7 +36,6 @@ require (
 	github.com/xdg-go/scram v1.0.2 // indirect
 	github.com/xdg-go/stringprep v1.0.2 // indirect
 	github.com/youmark/pkcs8 v0.0.0-20181117223130-1be2e3e5546d // indirect
-	go.mongodb.org/mongo-driver v1.7.0 // indirect
 	golang.org/x/crypto v0.0.0-20210711020723-a769d52b0f97 // indirect
 	golang.org/x/sync v0.0.0-20190911185100-cd5d95a43a6e // indirect
 	golang.org/x/sys v0.0.0-20210806184541-e5e7981a1069 // indirect

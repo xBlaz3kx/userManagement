@@ -2,12 +2,12 @@ package main
 
 import (
 	"fmt"
+	"github.com/fvbock/endless"
 	"github.com/gin-gonic/gin"
 	"github.com/xBlaz3kx/userManagementExample/db"
 	"github.com/xBlaz3kx/userManagementExample/internal/configuration"
 	"github.com/xBlaz3kx/userManagementExample/internal/group"
 	"github.com/xBlaz3kx/userManagementExample/internal/user"
-	"log"
 	"net/http"
 )
 
@@ -55,8 +55,8 @@ func main() {
 	db.Connect(appConfiguration.Mongo)
 
 	// listen and serve the api on provided address
-	err := router.Run(connectAddress)
+	err := endless.ListenAndServe(connectAddress, router)
 	if err != nil {
-		log.Println(err)
+		return
 	}
 }
