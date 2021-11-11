@@ -1,0 +1,362 @@
+swagger: "2.0"
+info:
+  title: Simple User and Group management API
+  description: Simple User and Group management API
+  version: 1.0.0
+host: localhost
+schemes:
+  - http
+paths:
+  /ping:
+    get:
+      description: Endpoint used for health check.
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Returns an empty object.
+          schema:
+            type: object
+  /users:
+    get:
+      description: Returns all users
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: A list of users.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/User'
+  /user:
+    post:
+      description: Creates a new user.
+      produces:
+        - application/json
+      responses:
+        '201':
+          description: User successfully created.
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/User'
+        '406':
+          description: An error occured during user creation.
+          schema:
+            type: object
+        '500':
+          description: Internal Error
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Error'
+  /user/{id}:
+    get:
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+      description: Returns a user with the requested ID.
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: The user object.
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/User'
+        '404':
+          description: User not found.
+          schema:
+            type: object
+        '500':
+          description: Internal Error
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Error'
+    delete:
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+      description: Delete a user with the provided ID.
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Deleted the user.
+          schema:
+            type: object
+        '404':
+          description: User not found.
+          schema:
+            type: object
+        '500':
+          description: Internal Error
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Error'
+    patch:
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+      description: Updates an existing user.
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: User updated.
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/User'
+        '404':
+          description: User not found.
+          schema:
+            type: object
+        '500':
+          description: Internal Error
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Error'
+    put:
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+      description: Updates an existing user.
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: User updated.
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/User'
+        '404':
+          description: User not found.
+          schema:
+            type: object
+        '500':
+          description: Internal Error
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Error'
+  /groups:
+    get:
+      description: Returns all the groups
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: A list of groups.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Group'
+  /group:
+    post:
+      description: Creates a new Group.
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Group created.
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Group'
+        '500':
+          description: Internal Error
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Error'
+  /group/{id}:
+    get:
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+      description: Returns a group with the ID.
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: A group with the ID.
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Group'
+        '404':
+          description: A list of pets.
+          schema:
+            type: object
+    delete:
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+      description: Deletes a group with the ID.
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Group deleted.
+          schema:
+            type: object
+        '404':
+          description: Group not found.
+          schema:
+            type: object
+        '500':
+          description: Internal Error
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Error'
+    patch:
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+      description: Updates an existing group.
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Group updated.
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Group'
+        '404':
+          description: Group not found.
+          schema:
+            type: object
+        '500':
+          description: Internal Error
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Error'
+    put:
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+      description: Updates an existing group.
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Group updated.
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Group'
+        '404':
+          description: Group not found.
+          schema:
+            type: object
+        '500':
+          description: Internal Error
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Error'
+  /group/{id}/user:
+    post:
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+      description: Adds an existing user to the group.
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: User successfully added to the group.
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Group'
+        '404':
+          description: Either group or user are not found.
+          schema:
+            type: object
+        '409':
+          description: User is already in a group.
+          schema:
+            type: object
+        '500':
+          description: Internal Error
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Error'
+    delete:
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+      description: Removes a user from the group.
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: User removed from the group.
+          schema:
+            type: object
+        '404':
+          description: Either group or user are not found.
+          schema:
+            type: object
+        '500':
+          description: Internal Error
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Error'
+definitions:
+  Group:
+    type: object
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+  User:
+    type: object
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+      email:
+        type: string
+      password:
+        type: string
+  Error:
+    type: object
+    properties:
+      error:
+        type: string
