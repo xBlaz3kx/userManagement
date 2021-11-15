@@ -39,7 +39,7 @@ func getRouter() *gin.Engine {
 	router.PATCH("/group/:id", group.UpdateGroups)
 
 	router.POST("/group/:id/user", group.AddUserToGroup)
-	router.DELETE("/group/:id/user", group.RemoveUserFromGroup)
+	router.DELETE("/group/:groupId/user/:userId", group.RemoveUserFromGroup)
 	return router
 }
 

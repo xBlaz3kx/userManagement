@@ -288,6 +288,9 @@ paths:
           in: path
           required: true
           type: string
+        - name: userId
+          in: body
+          type: string
       description: Adds an existing user to the group.
       produces:
         - application/json
@@ -312,9 +315,14 @@ paths:
             type: object
             items:
               $ref: '#/definitions/Error'
+  /group/{groupId}/user/{userId}:
     delete:
       parameters:
-        - name: id
+        - name: groupId
+          in: path
+          required: true
+          type: string
+        - name: userId
           in: path
           required: true
           type: string
