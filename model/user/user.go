@@ -5,9 +5,9 @@ import "github.com/kamva/mgm/v3"
 type (
 	User struct {
 		mgm.DefaultModel `bson:",inline"`
-		Email            string `json:"email" bson:"email" validate:"required,email"`
-		Password         string `json:"password" bson:"password" validate:"required"`
-		Name             string `json:"name"  bson:"name" validate:"required"`
+		Email            string `form:"email" binding:"required" json:"email" bson:"email" validate:"required,email"`
+		Password         string `form:"password" binding:"required" json:"password" bson:"password" validate:"required"`
+		Name             string `form:"name" binding:"required" json:"name"  bson:"name" validate:"required"`
 	}
 )
 

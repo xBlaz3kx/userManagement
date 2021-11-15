@@ -5,7 +5,7 @@ import "github.com/kamva/mgm/v3"
 type (
 	Group struct {
 		mgm.DefaultModel `bson:",inline"`
-		Name             string   `json:"name" bson:"name" validate:"required"`
+		Name             string   `form:"name" binding:"required" json:"name" bson:"name" validate:"required"`
 		Users            []string `json:"users" bson:"users"`
 	}
 )
