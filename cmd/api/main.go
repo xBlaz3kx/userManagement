@@ -18,8 +18,9 @@ var pingHandler = func(context *gin.Context) {
 func getRouter() *gin.Engine {
 	router := gin.Default()
 
-	// health check
+	// health check and index handler
 	router.GET("/ping", pingHandler)
+	router.GET("/", pingHandler)
 
 	//users
 	router.GET("/users", user.GetUsers)
