@@ -10,6 +10,9 @@ import (
 	"log"
 )
 
+var ErrUserInGroup = fmt.Errorf("user already in a group")
+var ErrUserNotInGroup = fmt.Errorf("user not in the group")
+
 func getGroup(filter interface{}) (*Group, error) {
 	group := &Group{}
 	err := mgm.Coll(&Group{}).First(filter, group)
@@ -85,7 +88,6 @@ func IsUserNotInGroup(groupId, userId string) bool {
 func AddUserToGroup(groupId, userId string) (*Group, error) {
 	log.Printf("Adding the user %s to the group %s", userId, groupId)
 	if IsUserNotInGroup(groupId, userId) {
-
 		hex, _ := primitive.ObjectIDFromHex(groupId)
 		group, err := getGroup(bson.M{"_id": hex})
 		if err != nil {
@@ -96,7 +98,7 @@ func AddUserToGroup(groupId, userId string) (*Group, error) {
 		err = mgm.Coll(&Group{}).Update(group)
 		return group, err
 	}
-	return nil, fmt.Errorf("user already in group")
+	return nil, ErrUserInGroup
 }
 
 func RemoveUserFromGroup(groupId, userId string) (*Group, error) {
@@ -124,5 +126,5 @@ func RemoveUserFromGroup(groupId, userId string) (*Group, error) {
 		return group, err
 
 	}
-	return nil, fmt.Errorf("user not in group")
+	return nil, ErrUserNotInGroup
 }
