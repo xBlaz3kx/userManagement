@@ -29,12 +29,14 @@ var CreateNewUser = func(context *gin.Context) {
 		return
 	}
 
-	u, _ := user.NewUser(body.Email, body.Password, body.Password)
-
+	u, _ := user.NewUser(body.Email, body.Name, body.Password)
 	user, err := db.AddUser(*u)
 	switch err {
 	case nil:
 		break
+	case db.ErrUserAlreadyExists:
+		context.JSON(http.StatusConflict, gin.H{})
+		return
 	case mongo.ErrNoDocuments:
 		context.JSON(http.StatusNotFound, gin.H{})
 		return

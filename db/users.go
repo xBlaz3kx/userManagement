@@ -1,7 +1,7 @@
 package db
 
 import (
-	"fmt"
+	"errors"
 	"github.com/kamva/mgm/v3"
 	. "github.com/xBlaz3kx/userManagementExample/model/user"
 	"go.mongodb.org/mongo-driver/bson"
@@ -10,6 +10,8 @@ import (
 	"golang.org/x/crypto/bcrypt"
 	"log"
 )
+
+var ErrUserAlreadyExists = errors.New("user already exists")
 
 func getUser(filter interface{}) (*User, error) {
 	user := &User{}
@@ -33,7 +35,7 @@ func AddUser(user User) (*User, error) {
 		return &user, err
 	}
 
-	return nil, fmt.Errorf("user already exists")
+	return nil, ErrUserAlreadyExists
 }
 
 func GetUsers() ([]User, error) {

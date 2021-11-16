@@ -81,7 +81,6 @@ func IsUserNotInGroup(groupId, userId string) bool {
 		"_id":   hex,
 		"users": userId,
 	})
-	log.Println(err)
 	return err == mongo.ErrNoDocuments
 }
 

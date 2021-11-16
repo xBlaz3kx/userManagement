@@ -5,11 +5,12 @@ import (
 	"github.com/xBlaz3kx/userManagementExample/db"
 	group2 "github.com/xBlaz3kx/userManagementExample/model/group"
 	"go.mongodb.org/mongo-driver/mongo"
+	"log"
 	"net/http"
 )
 
 type UserToGroup struct {
-	UserId string `binding:"required" json:"userId"`
+	UserId string `json:"userId"`
 }
 
 var CreateNewGroup = func(context *gin.Context) {
@@ -107,7 +108,8 @@ var AddUserToGroup = func(context *gin.Context) {
 	var user UserToGroup
 	id := context.Param("id")
 
-	if err := context.Bind(&user); err != nil {
+	if err := context.ShouldBindJSON(&user); err != nil {
+		log.Println(err)
 		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -130,7 +132,7 @@ var AddUserToGroup = func(context *gin.Context) {
 }
 
 var RemoveUserFromGroup = func(context *gin.Context) {
-	groupId := context.Param("groupId")
+	groupId := context.Param("id")
 	userId := context.Param("userId")
 
 	_, err := db.RemoveUserFromGroup(groupId, userId)

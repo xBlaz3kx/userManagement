@@ -15,7 +15,7 @@ type (
 func NewUser(email, name, password string) (*User, error) {
 	return &User{
 		Email:    email,
-		Password: name,
-		Name:     password,
+		Password: password,
+		Name:     name,
 	}, nil
 }
