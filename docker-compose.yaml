@@ -7,6 +7,13 @@ services:
       target: app
     ports:
       - "7777:7777"
+  goswagger:
+    image: quay.io/goswagger/swagger
+    entrypoint: [ "swagger","serve","/usr/local/swagger/api.yaml","-p","8080", "--no-open"]
+    volumes:
+      - './api/api.yaml:/usr/local/swagger/api.yaml'
+    ports:
+      - "8080:8080"
   mongodb:
     image: mongo
     environment:
